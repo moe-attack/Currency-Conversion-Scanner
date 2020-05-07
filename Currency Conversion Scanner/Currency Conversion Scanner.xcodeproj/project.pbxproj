@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3F1A5256245FE76700E64CD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A5255245FE76700E64CD9 /* AppDelegate.swift */; };
 		3F1A5258245FE76700E64CD9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A5257245FE76700E64CD9 /* SceneDelegate.swift */; };
-		3F1A525A245FE76700E64CD9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A5259245FE76700E64CD9 /* ViewController.swift */; };
 		3F1A525D245FE76700E64CD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A525B245FE76700E64CD9 /* Main.storyboard */; };
 		3F1A525F245FE78900E64CD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A525E245FE78900E64CD9 /* Assets.xcassets */; };
 		3F1A5262245FE78900E64CD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A5260245FE78900E64CD9 /* LaunchScreen.storyboard */; };
@@ -19,7 +18,6 @@
 		3F1A5252245FE76700E64CD9 /* Currency Conversion Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency Conversion Scanner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1A5255245FE76700E64CD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F1A5257245FE76700E64CD9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3F1A5259245FE76700E64CD9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3F1A525C245FE76700E64CD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F1A525E245FE78900E64CD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F1A5261245FE78900E64CD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,15 +54,22 @@
 		3F1A5254245FE76700E64CD9 /* Currency Conversion Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				3F1A52692462B79D00E64CD9 /* Resources */,
 				3F1A5255245FE76700E64CD9 /* AppDelegate.swift */,
 				3F1A5257245FE76700E64CD9 /* SceneDelegate.swift */,
-				3F1A5259245FE76700E64CD9 /* ViewController.swift */,
 				3F1A525B245FE76700E64CD9 /* Main.storyboard */,
 				3F1A525E245FE78900E64CD9 /* Assets.xcassets */,
 				3F1A5260245FE78900E64CD9 /* LaunchScreen.storyboard */,
 				3F1A5263245FE78900E64CD9 /* Info.plist */,
 			);
 			path = "Currency Conversion Scanner";
+			sourceTree = "<group>";
+		};
+		3F1A52692462B79D00E64CD9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +143,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F1A525A245FE76700E64CD9 /* ViewController.swift in Sources */,
 				3F1A5256245FE76700E64CD9 /* AppDelegate.swift in Sources */,
 				3F1A5258245FE76700E64CD9 /* SceneDelegate.swift in Sources */,
 			);
