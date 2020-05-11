@@ -11,10 +11,17 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var databaseController: DatabaseProtocol?
+    var webServiceManager: WebServiceManager?
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        databaseController?.cleanUp()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        databaseController = CoreDataController()
+//        webServiceManager = WebServiceManager(databaseController: databaseController)
+//        webServiceManager?.loadCurrency(url: "https://api.exchangeratesapi.io/latest?base=SGD")
         return true
     }
 

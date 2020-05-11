@@ -5,7 +5,6 @@
 //  Created by Jimmy Low on 8/5/20.
 //  Copyright © 2020 Jimmy Low. All rights reserved.
 //
-
 import Foundation
 import CoreData
 
@@ -20,7 +19,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
      In constructor we create the persistent container and load its data stack. we then update the child context's parent context ot this persistent container's view context
      */
     override init(){
-        persistentContainer = NSPersistentContainer(name: "CocktailModel")
+        persistentContainer = NSPersistentContainer(name: "CountryCurrencyModel")
         persistentContainer.loadPersistentStores(){ (description, error) in
             if let error = error {
                 fatalError("Failed to load Core Data Stack: \(error)")
@@ -70,7 +69,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return country
     }
     
-    func createCurrency(currencyData: CurrencyData) -> Currency {
+    func createCurrency() -> Currency {
         let currency = NSEntityDescription.insertNewObject(forEntityName: "Currency", into: childContext) as! Currency
         return currency
     }
@@ -84,6 +83,10 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
 
     func removeCountry(country: Country) {
         persistentContainer.viewContext.delete(country)
+    }
+    
+    func removeCurrency(currency: Currency) {
+        persistentContainer.viewContext.delete(currency)
     }
     
     /*
@@ -139,7 +142,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
     // NSFetchedResultsController delegate
-
     /*
      If the controller changed context, do appropriate action by calling responsible methods.
      */
@@ -151,6 +153,15 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
                 }
             }
         }
+    }
+    
+    func addMockCountry() {
+        let country = NSEntityDescription.insertNewObject(forEntityName: "Country", into: persistentContainer.viewContext) as! Country
+        let currency = NSEntityDescription.insertNewObject(forEntityName: "Currency", into: persistentContainer.viewContext) as! Currency
+        country.currency = currency
+        country.name = "singapore"
+        country.currencyAbbreviation = "sgd"
+        currency.sgd = 16.9008873809
     }
     
 }

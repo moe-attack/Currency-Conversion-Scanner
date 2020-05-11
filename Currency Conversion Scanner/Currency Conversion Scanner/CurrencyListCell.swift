@@ -9,10 +9,11 @@
 import UIKit
 
 class CurrencyListCell: UITableViewCell {
-
+    
     @IBOutlet weak var flagIcon: UIImageView!
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

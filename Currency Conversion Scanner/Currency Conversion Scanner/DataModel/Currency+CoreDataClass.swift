@@ -2,7 +2,7 @@
 //  Currency+CoreDataClass.swift
 //  Currency Conversion Scanner
 //
-//  Created by Jimmy Low on 8/5/20.
+//  Created by Jimmy Low on 9/5/20.
 //  Copyright © 2020 Jimmy Low. All rights reserved.
 //
 //
