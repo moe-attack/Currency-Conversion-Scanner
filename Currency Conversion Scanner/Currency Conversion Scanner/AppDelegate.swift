@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var databaseController: DatabaseProtocol?
-    var webServiceManager: WebServiceManager?
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         databaseController?.cleanUp()
@@ -20,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         databaseController = CoreDataController()
-//        webServiceManager = WebServiceManager(databaseController: databaseController)
-//        webServiceManager?.loadCurrency(url: "https://api.exchangeratesapi.io/latest?base=SGD")
         return true
     }
 

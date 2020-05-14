@@ -32,5 +32,4 @@ protocol DatabaseProtocol: AnyObject {
     func resetChildContext()
     func saveChildContext()
     func createChildCountryCopy(id: NSObject) -> Country  // create a child cocktail copy
-    func addMockCountry()
 }

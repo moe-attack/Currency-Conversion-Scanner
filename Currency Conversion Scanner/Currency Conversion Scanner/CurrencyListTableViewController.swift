@@ -8,11 +8,11 @@
 
 import UIKit
 
-class CurrencyListTableViewController: UITableViewController, DatabaseListener{
+class CurrencyListTableViewController: UITableViewController, DatabaseListener, AddCurrencyDelegate{
    
     var listenerType: ListenerType = .country
     weak var databaseController: DatabaseProtocol?
-    var currencyData: CurrencyData?
+    var currency: CurrencyData?
     
     var defaultCurrency = "AUD"
     var countries = [Country]()
@@ -36,18 +36,15 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener{
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        databaseController?.addMockCountry()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         switch section {
         case CURRENCY_CELL_INDEX:
             return countries.count
@@ -102,26 +99,16 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener{
             tableView.reloadData()
         }
     }
-
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "addCurrencySegue":
+            let destination = segue.destination as! AddCurrencyViewController
+            destination.addCurrencyDelegate = self
+        default:
+            ()
+        }
+    }
     
     func onCountryChange(change: DatabaseOperation, countries: [Country]) {
         self.countries = countries
@@ -132,4 +119,11 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener{
         return Double(round(1000*number)/1000)
     }
     
+    func addCurrency(country_name: String, currencyAbbreviation: String){
+        let country = databaseController?.createCountry(name: country_name.lowercased(), currencyAbbreviation: currencyAbbreviation)
+        let url = String(format: "https://api.exchangeratesapi.io/latest?base=%@", currencyAbbreviation)
+        if let country = country {
+            loadCurrency(url: url, country: country)
+        }
+    }
 }

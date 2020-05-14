@@ -11,7 +11,7 @@ import Foundation
 class Constants {
     
     enum allCurrencies {
-        static let ALL_CURRENCIES: [(String, String)] = [
+        static let ALL_CURRENCIES: [(country: String, abbre: String)] = [
             ("Canada", "CAD"),
             ("Hong Kong", "HKD"),
             ("Iceland", "ISK"),

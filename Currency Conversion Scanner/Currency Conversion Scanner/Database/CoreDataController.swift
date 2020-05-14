@@ -154,14 +154,4 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
             }
         }
     }
-    
-    func addMockCountry() {
-        let country = NSEntityDescription.insertNewObject(forEntityName: "Country", into: persistentContainer.viewContext) as! Country
-        let currency = NSEntityDescription.insertNewObject(forEntityName: "Currency", into: persistentContainer.viewContext) as! Currency
-        country.currency = currency
-        country.name = "singapore"
-        country.currencyAbbreviation = "sgd"
-        currency.sgd = 16.9008873809
-    }
-    
 }

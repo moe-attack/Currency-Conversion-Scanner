@@ -103,7 +103,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
-                                    <segue destination="9nI-gl-3WH" kind="show" id="Ad0-MY-7qm"/>
+                                    <segue destination="9nI-gl-3WH" kind="show" identifier="addCurrencySegue" id="Ad0-MY-7qm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

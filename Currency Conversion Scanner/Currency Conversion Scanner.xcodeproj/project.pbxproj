@@ -21,7 +21,6 @@
 		3F1A528C246656AF00E64CD9 /* Currency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A528A246656AF00E64CD9 /* Currency+CoreDataProperties.swift */; };
 		3F1A528F24665B7D00E64CD9 /* RawCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A528E24665B7D00E64CD9 /* RawCurrencyData.swift */; };
 		3F1A52912466812A00E64CD9 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A52902466812A00E64CD9 /* CurrencyData.swift */; };
-		3F1A529324668D0500E64CD9 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529224668D0500E64CD9 /* WebServiceManager.swift */; };
 		3F1A529824669C0A00E64CD9 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529524669C0A00E64CD9 /* DatabaseProtocol.swift */; };
 		3F1A529924669C0A00E64CD9 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529624669C0A00E64CD9 /* MulticastDelegate.swift */; };
 		3F1A529A24669C0A00E64CD9 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529724669C0A00E64CD9 /* CoreDataController.swift */; };
@@ -47,7 +46,6 @@
 		3F1A528A246656AF00E64CD9 /* Currency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Currency+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F1A528E24665B7D00E64CD9 /* RawCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawCurrencyData.swift; sourceTree = "<group>"; };
 		3F1A52902466812A00E64CD9 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
-		3F1A529224668D0500E64CD9 /* WebServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
 		3F1A529524669C0A00E64CD9 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		3F1A529624669C0A00E64CD9 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		3F1A529724669C0A00E64CD9 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 			children = (
 				3F1A528E24665B7D00E64CD9 /* RawCurrencyData.swift */,
 				3F1A52902466812A00E64CD9 /* CurrencyData.swift */,
-				3F1A529224668D0500E64CD9 /* WebServiceManager.swift */,
 			);
 			path = WebService;
 			sourceTree = "<group>";
@@ -220,7 +217,6 @@
 				3F1A528C246656AF00E64CD9 /* Currency+CoreDataProperties.swift in Sources */,
 				3F1A529E2469788100E64CD9 /* AddCurrencyViewController.swift in Sources */,
 				3F1A529924669C0A00E64CD9 /* MulticastDelegate.swift in Sources */,
-				3F1A529324668D0500E64CD9 /* WebServiceManager.swift in Sources */,
 				3F1A528B246656AF00E64CD9 /* Currency+CoreDataClass.swift in Sources */,
 				3F1A52912466812A00E64CD9 /* CurrencyData.swift in Sources */,
 				3F1A528024653A2300E64CD9 /* Country+CoreDataClass.swift in Sources */,
