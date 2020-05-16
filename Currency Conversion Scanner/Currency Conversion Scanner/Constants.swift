@@ -11,6 +11,7 @@ import Foundation
 class Constants {
     
     enum allCurrencies {
+        static let QUERY_URL = "https://api.exchangeratesapi.io/latest?base=%@"
         static let ALL_CURRENCIES: [(country: String, abbre: String)] = [
             ("Canada", "CAD"),
             ("Hong Kong", "HKD"),

@@ -76,9 +76,9 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     func addCurrency(country: Country, currency: Currency) {
         if let old_currency = country.currency {
-            country.currency = currency
             childContext.delete(old_currency)
         }
+        country.currency = currency
     }
 
     func removeCountry(country: Country) {

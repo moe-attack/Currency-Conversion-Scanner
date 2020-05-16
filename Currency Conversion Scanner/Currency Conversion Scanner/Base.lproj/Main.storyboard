@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Currency List-->
+        <!--CurrencyListViewController-->
         <scene sceneID="GdU-3M-4Wm">
             <objects>
-                <tableViewController id="1dg-8W-CYw" customClass="CurrencyListTableViewController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="CurrencyListViewController" id="1dg-8W-CYw" customClass="CurrencyListTableViewController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Cbz-ZC-DYp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -112,11 +112,59 @@
                             <outlet property="delegate" destination="1dg-8W-CYw" id="46W-Np-C7I"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="" image="coloncurrencysign.square" catalog="system" id="Cpd-gx-kqh" userLabel="List"/>
                     <navigationItem key="navigationItem" title="Currency List" id="zRz-1O-aHX"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="kzy-fE-ZGJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oOd-E3-TUG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1955.072463768116" y="81.696428571428569"/>
+        </scene>
+        <!--MenuViewController-->
+        <scene sceneID="XQG-fo-7hK">
+            <objects>
+                <tableViewController title="MenuViewController" id="8CV-m6-9Yw" customClass="MenuTableViewController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="EeK-He-KyC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xUb-HM-ZNl">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xUb-HM-ZNl" id="Qcj-ik-vP2">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PlaceHolder for Menu View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7v-2d-bth">
+                                            <rect key="frame" x="20" y="11" width="374" height="21.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="B7v-2d-bth" secondAttribute="trailing" id="943-8t-Pqs"/>
+                                        <constraint firstItem="B7v-2d-bth" firstAttribute="leading" secondItem="Qcj-ik-vP2" secondAttribute="leadingMargin" id="LWe-qH-uiN"/>
+                                        <constraint firstItem="B7v-2d-bth" firstAttribute="top" secondItem="Qcj-ik-vP2" secondAttribute="topMargin" id="SMq-TJ-eSv"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="B7v-2d-bth" secondAttribute="bottom" id="aiD-Nv-J84"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="8CV-m6-9Yw" id="wMD-0x-nCZ"/>
+                            <outlet property="delegate" destination="8CV-m6-9Yw" id="IiY-4R-4Az"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="" image="rectangle.grid.1x2" catalog="system" id="aVt-Gy-IJg"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vMQ-38-n11" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1941" y="765"/>
         </scene>
         <!--AddCurrencyViewController-->
         <scene sceneID="LKo-rg-L1f">
@@ -167,6 +215,55 @@
             </objects>
             <point key="canvasLocation" x="2996" y="82"/>
         </scene>
+        <!--TabBarController-->
+        <scene sceneID="1EG-Bl-oqO">
+            <objects>
+                <tabBarController title="TabBarController" id="FtP-du-P2z" customClass="TabBarController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="0WY-J9-sWY"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ee5-xX-V3j">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="1dg-8W-CYw" kind="relationship" relationship="viewControllers" id="CwD-8T-Icr"/>
+                        <segue destination="L0H-3u-nMa" kind="relationship" relationship="viewControllers" id="DB8-H1-MFQ"/>
+                        <segue destination="8CV-m6-9Yw" kind="relationship" relationship="viewControllers" id="Xt5-xP-Ged"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vAv-3P-do1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1086" y="72"/>
+        </scene>
+        <!--ScannerViewController-->
+        <scene sceneID="LLO-7h-JM7">
+            <objects>
+                <viewController title="ScannerViewController" id="L0H-3u-nMa" customClass="ScannerViewController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="og0-nm-Fgr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder for Scanner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdt-vv-mmf">
+                                <rect key="frame" x="13" y="188" width="388" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Jdt-vv-mmf" firstAttribute="top" secondItem="pRi-la-vI3" secondAttribute="top" constant="100" id="Eo9-He-U4U"/>
+                            <constraint firstItem="pRi-la-vI3" firstAttribute="trailing" secondItem="Jdt-vv-mmf" secondAttribute="trailing" constant="13" id="Lhd-3P-T95"/>
+                            <constraint firstItem="Jdt-vv-mmf" firstAttribute="leading" secondItem="pRi-la-vI3" secondAttribute="leading" constant="13" id="mFP-0Q-e9y"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pRi-la-vI3"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="barcode.viewfinder" catalog="system" selectedImage="barcode.viewfinder" id="qYs-8C-F2Y"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rWU-XJ-iGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1955" y="-609"/>
+        </scene>
         <!--NavigationController-->
         <scene sceneID="n0g-JJ-UvA">
             <objects>
@@ -178,16 +275,19 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="1dg-8W-CYw" kind="relationship" relationship="rootViewController" id="xmx-fg-o8F"/>
+                        <segue destination="FtP-du-P2z" kind="relationship" relationship="rootViewController" id="qDN-kI-CQW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lwc-cK-hdE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044.9275362318842" y="81.696428571428569"/>
+            <point key="canvasLocation" x="306" y="72"/>
         </scene>
     </scenes>
     <resources>
+        <image name="barcode.viewfinder" catalog="system" width="64" height="56"/>
+        <image name="coloncurrencysign.square" catalog="system" width="64" height="56"/>
         <image name="flag.circle" catalog="system" width="64" height="60"/>
         <image name="plusminus.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
     </resources>
 </document>

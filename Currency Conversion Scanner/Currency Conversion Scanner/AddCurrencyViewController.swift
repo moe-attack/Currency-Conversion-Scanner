@@ -46,6 +46,6 @@ class AddCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     func buttonTapped(){
         navigationController?.popViewController(animated: true)
-        addCurrencyDelegate?.addCurrency(country_name: selectedItem.0, currencyAbbreviation: selectedItem.1)
+        addCurrencyDelegate?.addNewCurrency(country_name: selectedItem.0, currencyAbbreviation: selectedItem.1)
     }
 }
