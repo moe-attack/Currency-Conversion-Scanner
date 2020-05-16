@@ -9,11 +9,11 @@
 import UIKit
 
 class CurrencyListTableViewController: UITableViewController, DatabaseListener, AddCurrencyDelegate{
-   
+    
     var listenerType: ListenerType = .country
     weak var databaseController: DatabaseProtocol?
-    var currency: CurrencyData?
     
+    var currency: CurrencyData?
     var defaultCurrency = "AUD"
     var countries = [Country]()
     
@@ -25,6 +25,8 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
+        self.tabBarController?.title = "Currency List"
+        self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -35,7 +37,7 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        databaseController = appDelegate.databaseController
+        databaseController = appDelegate.databaseController        
     }
 
     // MARK: - Table view data source
@@ -97,7 +99,7 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         if editingStyle == .delete && indexPath.section == CURRENCY_CELL_INDEX {
             databaseController?.removeCountry(country: country)
             databaseController?.removeCurrency(currency: currency)
-            tableView.reloadData()
+            tableView.reloadSections([CURRENCY_CELL_INDEX], with: .automatic)
         }
     }
     
@@ -122,10 +124,16 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     
     func addCurrency(country_name: String, currencyAbbreviation: String){
         let country = databaseController?.createCountry(name: country_name.lowercased(), currencyAbbreviation: currencyAbbreviation)
-        let url = String(format: "https://api.exchangeratesapi.io/latest?base=%@", currencyAbbreviation)
+        let url = String(format: Constants.allCurrencies.QUERY_URL, currencyAbbreviation)
         if let country = country {
             loadCurrency(url: url, country: country)
         }
+    }
+    
+    @objc func refresh(sender: AnyObject) {
+        ()
+        tableView.reloadSections([CURRENCY_CELL_INDEX], with: .automatic)
+        self.refreshControl?.endRefreshing()
     }
     
     func loadCurrency(url: String, country: Country){

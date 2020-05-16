@@ -27,6 +27,8 @@
 		3F1A529C2469773000E64CD9 /* AddCurrencyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529B2469773000E64CD9 /* AddCurrencyDelegate.swift */; };
 		3F1A529E2469788100E64CD9 /* AddCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529D2469788100E64CD9 /* AddCurrencyViewController.swift */; };
 		3F1A52A0246984B600E64CD9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529F246984B600E64CD9 /* Constants.swift */; };
+		3F1A52A2246D143E00E64CD9 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A52A1246D143E00E64CD9 /* ScannerViewController.swift */; };
+		3F1A52A4246EB3C500E64CD9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A52A3246EB3C500E64CD9 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		3F1A529B2469773000E64CD9 /* AddCurrencyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyDelegate.swift; sourceTree = "<group>"; };
 		3F1A529D2469788100E64CD9 /* AddCurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyViewController.swift; sourceTree = "<group>"; };
 		3F1A529F246984B600E64CD9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3F1A52A1246D143E00E64CD9 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		3F1A52A3246EB3C500E64CD9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 				3F1A529B2469773000E64CD9 /* AddCurrencyDelegate.swift */,
 				3F1A529D2469788100E64CD9 /* AddCurrencyViewController.swift */,
 				3F1A529F246984B600E64CD9 /* Constants.swift */,
+				3F1A52A1246D143E00E64CD9 /* ScannerViewController.swift */,
+				3F1A52A3246EB3C500E64CD9 /* TabBarController.swift */,
 			);
 			path = "Currency Conversion Scanner";
 			sourceTree = "<group>";
@@ -217,6 +223,8 @@
 				3F1A528C246656AF00E64CD9 /* Currency+CoreDataProperties.swift in Sources */,
 				3F1A529E2469788100E64CD9 /* AddCurrencyViewController.swift in Sources */,
 				3F1A529924669C0A00E64CD9 /* MulticastDelegate.swift in Sources */,
+				3F1A52A4246EB3C500E64CD9 /* TabBarController.swift in Sources */,
+				3F1A52A2246D143E00E64CD9 /* ScannerViewController.swift in Sources */,
 				3F1A528B246656AF00E64CD9 /* Currency+CoreDataClass.swift in Sources */,
 				3F1A52912466812A00E64CD9 /* CurrencyData.swift in Sources */,
 				3F1A528024653A2300E64CD9 /* Country+CoreDataClass.swift in Sources */,
