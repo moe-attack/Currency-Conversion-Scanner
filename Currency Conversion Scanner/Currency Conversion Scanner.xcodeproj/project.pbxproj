@@ -29,6 +29,7 @@
 		3F1A52A0246984B600E64CD9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A529F246984B600E64CD9 /* Constants.swift */; };
 		3F1A52A2246D143E00E64CD9 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A52A1246D143E00E64CD9 /* ScannerViewController.swift */; };
 		3F1A52A4246EB3C500E64CD9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A52A3246EB3C500E64CD9 /* TabBarController.swift */; };
+		3FE7912F247037DF00465423 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE7912E247037DF00465423 /* MenuTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		3F1A529F246984B600E64CD9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3F1A52A1246D143E00E64CD9 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		3F1A52A3246EB3C500E64CD9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3FE7912E247037DF00465423 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				3F1A529F246984B600E64CD9 /* Constants.swift */,
 				3F1A52A1246D143E00E64CD9 /* ScannerViewController.swift */,
 				3F1A52A3246EB3C500E64CD9 /* TabBarController.swift */,
+				3FE7912E247037DF00465423 /* MenuTableViewController.swift */,
 			);
 			path = "Currency Conversion Scanner";
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				3F1A5258245FE76700E64CD9 /* SceneDelegate.swift in Sources */,
 				3F1A528C246656AF00E64CD9 /* Currency+CoreDataProperties.swift in Sources */,
 				3F1A529E2469788100E64CD9 /* AddCurrencyViewController.swift in Sources */,
+				3FE7912F247037DF00465423 /* MenuTableViewController.swift in Sources */,
 				3F1A529924669C0A00E64CD9 /* MulticastDelegate.swift in Sources */,
 				3F1A52A4246EB3C500E64CD9 /* TabBarController.swift in Sources */,
 				3F1A52A2246D143E00E64CD9 /* ScannerViewController.swift in Sources */,
