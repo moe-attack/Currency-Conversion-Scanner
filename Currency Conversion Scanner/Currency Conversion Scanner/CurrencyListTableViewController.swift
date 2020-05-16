@@ -22,6 +22,8 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     let CURRENCY_CELL_INDEX = 0
     let ADD_CELL_INDEX = 1
     
+    var leftoverTask = 0
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
@@ -122,7 +124,7 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         return Double(round(1000*number)/1000)
     }
     
-    func addCurrency(country_name: String, currencyAbbreviation: String){
+    func addNewCurrency(country_name: String, currencyAbbreviation: String){
         let country = databaseController?.createCountry(name: country_name.lowercased(), currencyAbbreviation: currencyAbbreviation)
         let url = String(format: Constants.allCurrencies.QUERY_URL, currencyAbbreviation)
         if let country = country {
@@ -131,12 +133,15 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     }
     
     @objc func refresh(sender: AnyObject) {
-        ()
-        tableView.reloadSections([CURRENCY_CELL_INDEX], with: .automatic)
-        self.refreshControl?.endRefreshing()
+        for country in self.countries {
+            let url = String(format: Constants.allCurrencies.QUERY_URL, country.currencyAbbreviation!)
+            let country_copy = self.databaseController?.createChildCountryCopy(id: country.objectID)
+            loadCurrency(url: url, country: country_copy!)
+        }
     }
     
     func loadCurrency(url: String, country: Country){
+        self.leftoverTask += 1
         URLSession.shared.invalidateAndCancel()
         // PercentageEncoding must be added to handle non-alphabetical and non-number characters
         let jsonURL = URL(string: url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
@@ -153,7 +158,7 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
                     self.currency = rates
                     DispatchQueue.main.async {
                         let currencyObject = self.databaseController?.createCurrency()
-                        country.currency = currencyObject
+                        self.databaseController?.addCurrency(country: country, currency: currencyObject!)
                         if let cad = self.currency?.cad {
                             currencyObject?.cad = Double(cad)
                         }
@@ -251,10 +256,13 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
                             currencyObject?.pln = Double(pln)
                         }
                         
-                        // note that creation are all done in child context, so we need to save the child context and push the
-                        // changes to the main context, then reset the child context for later use.
-                        self.databaseController?.saveChildContext()
-                        self.databaseController?.resetChildContext()
+                        self.leftoverTask -= 1
+                        
+                        if self.leftoverTask == 0 {
+                            self.databaseController?.saveChildContext()
+                            self.databaseController?.resetChildContext()
+                            self.refreshControl?.endRefreshing()
+                        }
                     }
                 }
             } catch let err {

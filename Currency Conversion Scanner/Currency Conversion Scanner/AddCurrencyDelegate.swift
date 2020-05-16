@@ -9,5 +9,5 @@
 import Foundation
 
 protocol AddCurrencyDelegate: NSObject{
-    func addCurrency(country_name: String, currencyAbbreviation: String)
+    func addNewCurrency(country_name: String, currencyAbbreviation: String)
 }
