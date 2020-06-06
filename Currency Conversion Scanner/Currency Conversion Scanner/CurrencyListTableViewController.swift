@@ -14,7 +14,8 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     weak var databaseController: DatabaseProtocol?
     
     var currency: CurrencyData?
-    var defaultCurrency = "AUD"
+    var defaultCurrency = UserDefaults.standard.string(forKey: "DefaultCurrency") ?? "AUD"
+
     var countries = [Country]()
     
     let CURRENCY_CELL = "CurrencyListCell"
@@ -28,7 +29,12 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
         self.tabBarController?.title = "Currency List"
-        self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: UIControl.Event.valueChanged)
+        let newDefaultCurrency = UserDefaults.standard.string(forKey: "DefaultCurrency") ?? "AUD"
+        if defaultCurrency != newDefaultCurrency {
+            defaultCurrency = newDefaultCurrency
+            refresh()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,6 +111,10 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "addCurrencySegue":
@@ -132,7 +142,15 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         }
     }
     
-    @objc func refresh(sender: AnyObject) {
+    @objc func pullToRefresh(sender: AnyObject) {
+        refresh()
+    }
+    
+    func refresh(){
+        if self.countries.count == 0 {
+            self.refreshControl?.endRefreshing()
+            return
+        }
         for country in self.countries {
             let url = String(format: Constants.allCurrencies.QUERY_URL, country.currencyAbbreviation!)
             let country_copy = self.databaseController?.createChildCountryCopy(id: country.objectID)
