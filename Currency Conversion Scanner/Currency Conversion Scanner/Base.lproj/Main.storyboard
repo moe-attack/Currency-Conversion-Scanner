@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FKq-jq-arP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FKq-jq-arP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -228,57 +228,28 @@
         <!--ScannerViewController-->
         <scene sceneID="LLO-7h-JM7">
             <objects>
-                <viewController title="ScannerViewController" id="L0H-3u-nMa" customClass="ScannerViewController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="ScannerViewController" id="L0H-3u-nMa" customClass="VisionViewController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="og0-nm-Fgr" userLabel="ContentView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6at-fN-m94" userLabel="camera view">
-                                <rect key="frame" x="0.0" y="88" width="414" height="590"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6at-fN-m94" userLabel="preview view" customClass="PreviewView" customModule="Currency_Conversion_Scanner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA7-vr-0Ms">
-                                <rect key="frame" x="180" y="718.5" width="54" height="54"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="1mF-hl-1od"/>
-                                    <constraint firstAttribute="width" constant="54" id="pes-D3-PvK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <size key="titleShadowOffset" width="40" height="40"/>
-                                <state key="normal" backgroundImage="camera.circle.fill" catalog="system">
-                                    <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="heavy"/>
-                                </state>
-                                <connections>
-                                    <action selector="cameraButton:" destination="L0H-3u-nMa" eventType="touchUpInside" id="nao-5r-lYk"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wM-78-8gM" userLabel="testlabel">
-                                <rect key="frame" x="20" y="772" width="140" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="pRi-la-vI3" firstAttribute="bottom" secondItem="rA7-vr-0Ms" secondAttribute="bottom" constant="40" id="3XA-uQ-xtz"/>
-                            <constraint firstItem="6wM-78-8gM" firstAttribute="leading" secondItem="pRi-la-vI3" secondAttribute="leading" constant="20" id="9E5-hP-MLC"/>
-                            <constraint firstItem="rA7-vr-0Ms" firstAttribute="leading" secondItem="6wM-78-8gM" secondAttribute="trailing" constant="20" id="9ON-bo-Rqu"/>
-                            <constraint firstItem="6at-fN-m94" firstAttribute="top" secondItem="pRi-la-vI3" secondAttribute="top" id="Nql-Ak-DtA"/>
-                            <constraint firstItem="6at-fN-m94" firstAttribute="leading" secondItem="pRi-la-vI3" secondAttribute="leading" id="VMk-BS-ZxP"/>
-                            <constraint firstItem="rA7-vr-0Ms" firstAttribute="top" secondItem="6at-fN-m94" secondAttribute="bottom" constant="40" id="fLC-CF-n4s"/>
-                            <constraint firstItem="pRi-la-vI3" firstAttribute="bottom" secondItem="6wM-78-8gM" secondAttribute="bottom" constant="20" id="pKY-x9-2tO"/>
-                            <constraint firstItem="pRi-la-vI3" firstAttribute="trailing" secondItem="6at-fN-m94" secondAttribute="trailing" id="pgP-wX-aHI"/>
-                            <constraint firstItem="rA7-vr-0Ms" firstAttribute="centerX" secondItem="og0-nm-Fgr" secondAttribute="centerX" id="tkj-0b-h9e"/>
+                            <constraint firstItem="6at-fN-m94" firstAttribute="top" secondItem="og0-nm-Fgr" secondAttribute="top" constant="88" id="Ggo-Zg-rob"/>
+                            <constraint firstItem="6at-fN-m94" firstAttribute="bottom" secondItem="og0-nm-Fgr" secondAttribute="bottom" constant="-83" id="NT6-q8-9Uz"/>
+                            <constraint firstItem="6at-fN-m94" firstAttribute="leading" secondItem="og0-nm-Fgr" secondAttribute="leading" id="VMk-BS-ZxP"/>
+                            <constraint firstAttribute="trailing" secondItem="6at-fN-m94" secondAttribute="trailing" id="ob6-cE-b6X"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pRi-la-vI3"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="barcode.viewfinder" catalog="system" selectedImage="barcode.viewfinder" id="qYs-8C-F2Y"/>
                     <connections>
-                        <outlet property="cameraView" destination="6at-fN-m94" id="3oT-YP-Uuk"/>
-                        <outlet property="testLabel" destination="6wM-78-8gM" id="jMR-fe-Ltg"/>
+                        <outlet property="previewView" destination="6at-fN-m94" id="7tn-we-IlY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWU-XJ-iGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -355,11 +326,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="barcode.viewfinder" catalog="system" width="64" height="56"/>
-        <image name="camera.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="coloncurrencysign.square" catalog="system" width="64" height="56"/>
-        <image name="flag.circle" catalog="system" width="64" height="60"/>
-        <image name="plusminus.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
+        <image name="barcode.viewfinder" catalog="system" width="128" height="114"/>
+        <image name="coloncurrencysign.square" catalog="system" width="128" height="114"/>
+        <image name="flag.circle" catalog="system" width="128" height="121"/>
+        <image name="plusminus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="rectangle.grid.1x2" catalog="system" width="128" height="101"/>
     </resources>
 </document>

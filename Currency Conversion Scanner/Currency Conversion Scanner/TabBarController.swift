@@ -15,11 +15,4 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
     }
-    
-    
-    
-    
-    
-
-
 }
