@@ -20,6 +20,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Currency Conversion Scanner requires access to camera for analyzing images</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Currency Conversion Scanner requires device location for analyzing feature</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Currency Conversion Scanner requires device location for analyzing feature</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -1,32 +1,30 @@
 //
-//  AddCurrencyViewController.swift
+//  DefaultCurrencyViewController.swift
 //  Currency Conversion Scanner
 //
-//  Created by Jimmy Low on 11/5/20.
+//  Created by Jimmy Low on 22/5/20.
 //  Copyright © 2020 Jimmy Low. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class AddCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DefaultCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         
-    @IBOutlet weak var pickerView: UIPickerView!
-    @IBAction func saveButtonTapped(_ sender: UIButton) {
+    @IBOutlet weak var currencyPicker: UIPickerView!
+    @IBAction func saveButton(_ sender: UIButton) {
         buttonTapped()
     }
     
-    weak var addCurrencyDelegate: AddCurrencyDelegate?
     let pickerData = Constants.allCurrencies.ALL_CURRENCIES.sorted{ $0.country < $1.country }
     var selectedItem = ("", "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerView.layer.cornerRadius = 10
-        addShadowsToView(view: pickerView)
-        pickerView.setValue(UIColor(named: "maroonPurple"), forKey: "textColor")
-        pickerView.delegate = self
-        pickerView.dataSource = self
+        currencyPicker.layer.cornerRadius = 10
+        addShadowsToView(view: currencyPicker)
+        currencyPicker.delegate = self
+        currencyPicker.dataSource = self
         selectedItem = pickerData[0]
     }
     
@@ -49,6 +47,6 @@ class AddCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     func buttonTapped(){
         navigationController?.popViewController(animated: true)
-        addCurrencyDelegate?.addNewCurrency(country_name: selectedItem.0, currencyAbbreviation: selectedItem.1)
+        UserDefaults.standard.set(selectedItem.1, forKey: "DefaultCurrency")
     }
 }

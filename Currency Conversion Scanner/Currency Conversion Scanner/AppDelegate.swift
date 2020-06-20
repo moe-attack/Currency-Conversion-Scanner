@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var databaseController: DatabaseProtocol?
+    var locationManager = LocationManager()
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         databaseController?.cleanUp()
@@ -19,6 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         databaseController = CoreDataController()
+        
+        if let exposeLocation = locationManager.exposedLocation {
+            locationManager.getPlace(for: exposeLocation) { placeMark in
+                guard let placeMark = placeMark else {return}
+                UserDefaults.standard.set(placeMark.country, forKey: "CurrentLocation")
+            }
+        }
+        
         return true
     }
 
