@@ -31,7 +31,6 @@ class Constants {
             ("Japan", "JPY"),
             ("Thailand", "THB"),
             ("Switzerland", "CHF"),
-            ("European Union", "EUR"),
             ("Malaysia", "MYR"),
             ("Bulgaria", "BGN"),
             ("Turkey", "TRY"),

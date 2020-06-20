@@ -10,6 +10,8 @@ import UIKit
 
 class MenuTableViewController: UITableViewController {
 
+    let MENU_CELL = "MenuCell"
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.title = "Menu"
@@ -38,13 +40,12 @@ class MenuTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.heavy)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuTableViewCell
         switch indexPath.row{
         case 0:
-            cell.textLabel?.text = "Calculator"
+            cell.containerText.text = "Change Default Currency"
         case 1:
-            cell.textLabel?.text = "Change Default Currency"
+            cell.containerText.text = "About"
         default:
             ()
         }
@@ -54,9 +55,9 @@ class MenuTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            ()
-        case 1:
             performSegue(withIdentifier: "defaultCurrencySegue", sender: nil)
+        case 1:
+            performSegue(withIdentifier: "aboutSegue", sender: nil)
         default:
             ()
         }

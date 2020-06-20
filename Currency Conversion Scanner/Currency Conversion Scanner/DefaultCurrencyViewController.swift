@@ -21,6 +21,8 @@ class DefaultCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currencyPicker.layer.cornerRadius = 10
+        addShadowsToView(view: currencyPicker)
         currencyPicker.delegate = self
         currencyPicker.dataSource = self
         selectedItem = pickerData[0]

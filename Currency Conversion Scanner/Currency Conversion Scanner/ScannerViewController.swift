@@ -47,7 +47,7 @@ class ScannerViewController: UIViewController {
     var visionToAVFTransform = CGAffineTransform.identity
 
     // get location
-    var currentLocation = UserDefaults.standard.string(forKey: "CurrentLocation")!
+    var currentLocation = UserDefaults.standard.string(forKey: "CurrentLocation") ?? ""
     var currency: CurrencyData?
     var defaultCurrency = UserDefaults.standard.string(forKey: "DefaultCurrency") ?? "AUD"
     let wsm = WebServiceManager()
@@ -84,8 +84,6 @@ class ScannerViewController: UIViewController {
         @unknown default:
             fatalError("Failure to determine capture device status")
         }
-        
-        let currentLocation = UserDefaults.standard.string(forKey: "CurrentLocation") ?? "None"
     }
     
     override func viewDidLayoutSubviews() {
@@ -206,9 +204,11 @@ class ScannerViewController: UIViewController {
      */
     func displayAlert(title: String, value: String) {
         var currentAbbre = ""
-        for each in Constants.allCurrencies.ALL_CURRENCIES {
-            if each.country == currentLocation{
-                currentAbbre = each.abbre
+        if currentLocation != "" {
+            for each in Constants.allCurrencies.ALL_CURRENCIES {
+                if each.country == currentLocation{
+                    currentAbbre = each.abbre
+                }
             }
         }
         

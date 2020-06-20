@@ -35,6 +35,11 @@
 		3F84686A248D053700C76323 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846869248D053700C76323 /* PreviewView.swift */; };
 		3F84686C248D05DE00C76323 /* VisionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F84686B248D05DE00C76323 /* VisionViewController.swift */; };
 		3F846870249BC50900C76323 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F84686F249BC50900C76323 /* WebServiceManager.swift */; };
+		3F846872249CA15A00C76323 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846871249CA15A00C76323 /* MenuTableViewCell.swift */; };
+		3F846874249CA2C700C76323 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F846873249CA2C700C76323 /* Color.xcassets */; };
+		3F846876249CAE2000C76323 /* FunctionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846875249CAE2000C76323 /* FunctionUtil.swift */; };
+		3F846878249CD76C00C76323 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846877249CD76C00C76323 /* AboutTableViewController.swift */; };
+		3F84687A249CDD9800C76323 /* CreditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846879249CDD9800C76323 /* CreditTableViewCell.swift */; };
 		3FE7912F247037DF00465423 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE7912E247037DF00465423 /* MenuTableViewController.swift */; };
 		9BA5785EDC08C68DA8556AED /* Pods_Currency_Conversion_Scanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B36BDDD5C696958CA0B18B5 /* Pods_Currency_Conversion_Scanner.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +76,11 @@
 		3F846869248D053700C76323 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		3F84686B248D05DE00C76323 /* VisionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewController.swift; sourceTree = "<group>"; };
 		3F84686F249BC50900C76323 /* WebServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
+		3F846871249CA15A00C76323 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		3F846873249CA2C700C76323 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		3F846875249CAE2000C76323 /* FunctionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionUtil.swift; sourceTree = "<group>"; };
+		3F846877249CD76C00C76323 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
+		3F846879249CDD9800C76323 /* CreditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditTableViewCell.swift; sourceTree = "<group>"; };
 		3FE7912E247037DF00465423 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		96EEF0E0FFEE93DB08F3396C /* Pods-Currency Conversion Scanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency Conversion Scanner.debug.xcconfig"; path = "Target Support Files/Pods-Currency Conversion Scanner/Pods-Currency Conversion Scanner.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA773FC837E5C83B76B593B /* Pods-Currency Conversion Scanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency Conversion Scanner.release.xcconfig"; path = "Target Support Files/Pods-Currency Conversion Scanner/Pods-Currency Conversion Scanner.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +142,11 @@
 				3F846867248CD38700C76323 /* StringUtils.swift */,
 				3F84686B248D05DE00C76323 /* VisionViewController.swift */,
 				3F84686F249BC50900C76323 /* WebServiceManager.swift */,
+				3F846871249CA15A00C76323 /* MenuTableViewCell.swift */,
+				3F846873249CA2C700C76323 /* Color.xcassets */,
+				3F846875249CAE2000C76323 /* FunctionUtil.swift */,
+				3F846877249CD76C00C76323 /* AboutTableViewController.swift */,
+				3F846879249CDD9800C76323 /* CreditTableViewCell.swift */,
 			);
 			path = "Currency Conversion Scanner";
 			sourceTree = "<group>";
@@ -244,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F1A5262245FE78900E64CD9 /* LaunchScreen.storyboard in Resources */,
+				3F846874249CA2C700C76323 /* Color.xcassets in Resources */,
 				3F1A525F245FE78900E64CD9 /* Assets.xcassets in Resources */,
 				3F1A525D245FE76700E64CD9 /* Main.storyboard in Resources */,
 			);
@@ -283,9 +299,12 @@
 			files = (
 				3F1A529824669C0A00E64CD9 /* DatabaseProtocol.swift in Sources */,
 				3F1A528124653A2300E64CD9 /* Country+CoreDataProperties.swift in Sources */,
+				3F84687A249CDD9800C76323 /* CreditTableViewCell.swift in Sources */,
 				3F1A529A24669C0A00E64CD9 /* CoreDataController.swift in Sources */,
 				3F1A529C2469773000E64CD9 /* AddCurrencyDelegate.swift in Sources */,
 				3F1A528F24665B7D00E64CD9 /* RawCurrencyData.swift in Sources */,
+				3F846876249CAE2000C76323 /* FunctionUtil.swift in Sources */,
+				3F846878249CD76C00C76323 /* AboutTableViewController.swift in Sources */,
 				3F1A526E2465058A00E64CD9 /* CurrencyListCell.swift in Sources */,
 				3F59A602247EA61000C54269 /* LocationManager.swift in Sources */,
 				3F1A5256245FE76700E64CD9 /* AppDelegate.swift in Sources */,
@@ -295,6 +314,7 @@
 				3F1A526C2465050E00E64CD9 /* CurrencyListTableViewController.swift in Sources */,
 				3F846870249BC50900C76323 /* WebServiceManager.swift in Sources */,
 				3F1A5258245FE76700E64CD9 /* SceneDelegate.swift in Sources */,
+				3F846872249CA15A00C76323 /* MenuTableViewCell.swift in Sources */,
 				3F1A528C246656AF00E64CD9 /* Currency+CoreDataProperties.swift in Sources */,
 				3F1A529E2469788100E64CD9 /* AddCurrencyViewController.swift in Sources */,
 				3FE7912F247037DF00465423 /* MenuTableViewController.swift in Sources */,

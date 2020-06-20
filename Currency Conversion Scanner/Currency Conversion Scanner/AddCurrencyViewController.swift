@@ -22,6 +22,9 @@ class AddCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pickerView.layer.cornerRadius = 10
+        addShadowsToView(view: pickerView)
+        pickerView.setValue(UIColor(named: "maroonPurple"), forKey: "textColor")
         pickerView.delegate = self
         pickerView.dataSource = self
         selectedItem = pickerData[0]

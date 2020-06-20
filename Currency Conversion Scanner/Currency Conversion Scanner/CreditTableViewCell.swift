@@ -1,26 +1,25 @@
 //
-//  CurrencyListCell.swift
+//  CreditTableViewCell.swift
 //  Currency Conversion Scanner
 //
-//  Created by Jimmy Low on 8/5/20.
+//  Created by Jimmy Low on 19/6/20.
 //  Copyright © 2020 Jimmy Low. All rights reserved.
 //
 
 import UIKit
 
-class CurrencyListCell: UITableViewCell {
-    
+class CreditTableViewCell: UITableViewCell {
+
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var flagIcon: UIImageView!
-    @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var rateLabel: UILabel!
-    
+    @IBOutlet weak var header: UILabel!
+    @IBOutlet weak var body: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         containerView.layer.cornerRadius = 10
         addShadowsToView(view: containerView)
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

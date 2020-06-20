@@ -30,6 +30,7 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
         self.tabBarController?.title = "Currency List"
+        self.refreshControl?.tintColor = UIColor(named: "maroonPurple")
         self.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: UIControl.Event.valueChanged)
         let newDefaultCurrency = UserDefaults.standard.string(forKey: "DefaultCurrency") ?? "AUD"
         if defaultCurrency != newDefaultCurrency {
@@ -46,7 +47,8 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        databaseController = appDelegate.databaseController        
+        databaseController = appDelegate.databaseController
+        addShadowsToView(view: self.navigationController!.navigationBar)
     }
 
     // MARK: - Table view data source
