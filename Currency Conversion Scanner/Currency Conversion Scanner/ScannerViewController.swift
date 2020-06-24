@@ -126,12 +126,28 @@ class ScannerViewController: UIViewController {
         }
     }
     
+    /*
+     This function is like viewDidLoad, but will be called everytime the view controller enters the top stack
+     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        captureSessionQueue.async {
-            if !self.captureSession.isRunning {
-                self.captureSession.startRunning()
+        
+        // ensure the camera device is accessible before set up.
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            captureSessionQueue.async {
+                if !self.captureSession.isRunning {
+                    self.captureSession.startRunning()
+                }
             }
+        case .notDetermined:
+            return
+        case .denied:
+            return
+        case .restricted:
+            return
+        @unknown default:
+            fatalError("Failure to determine capture device status")
         }
     }
 
