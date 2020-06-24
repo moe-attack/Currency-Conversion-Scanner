@@ -126,5 +126,6 @@ class Constants {
         static let messageCurrencyExisted = "This currency already exists in the list! \nm(_ _;m)"
         static let messageINF = "If value 'INF' showed up, please try again! m(_ _;m)"
         static let messageLocationDisabled = "The current location service is disabled! Please enable it in device setting and try again!"
+        static let messageNoCurrencyAbbre = "Sorry! We couldn't retreive the currency right now, please try to restart the app!"
     }
 }

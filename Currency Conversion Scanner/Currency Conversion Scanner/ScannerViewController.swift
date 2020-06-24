@@ -21,6 +21,8 @@ class ScannerViewController: UIViewController {
     @IBOutlet weak var previewView: PreviewView!
     @IBOutlet weak var noCamera: UIImageView!
 
+    weak var locationManager: LocationManager?
+    
     let constants = Constants.scanner.self
     let alertConstants = Constants.alert.self
 
@@ -69,13 +71,7 @@ class ScannerViewController: UIViewController {
         case .authorized:
             noCamera.isHidden = true
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { granted in
-                if granted {
-                    self.noCamera.isHidden = true
-                } else {
-                    self.noCamera.isHidden = false
-                }
-            }
+            self.noCamera.isHidden = false
         case .denied:
             noCamera.isHidden = false
             return
@@ -101,6 +97,8 @@ class ScannerViewController: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        locationManager = appDelegate.locationManager
         // set up preview view
         previewView.session = captureSession
         // using a mask layer to have limited area of interest
@@ -127,6 +125,15 @@ class ScannerViewController: UIViewController {
             fatalError("Failure to determine capture device status")
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        captureSessionQueue.async {
+            if !self.captureSession.isRunning {
+                self.captureSession.startRunning()
+            }
+        }
+    }
 
     /*
      This function prepares to set up the camera using dedicated queue
@@ -139,6 +146,7 @@ class ScannerViewController: UIViewController {
             
             DispatchQueue.main.async {
                 // recalculate region of interest since camera is set up
+                self.noCamera.isHidden = true
                 self.calculateRegionOfInterest()
             }
         }
@@ -242,6 +250,17 @@ class ScannerViewController: UIViewController {
         var currentAbbre = ""
         var message = ""
         var title = ""
+        // If the location is nil, try to fetch again
+        if currentLocation == "" {
+            if let exposeLocation = locationManager?.exposedLocation {
+                locationManager?.getPlace(for: exposeLocation) { placeMark in
+                    guard let placeMark = placeMark else {return}
+                    UserDefaults.standard.set(placeMark.country, forKey: Constants.persistentKey.currentLocation)
+                    self.currentLocation = placeMark.country!
+                }
+            }
+        }
+        
         if currentLocation != "" {
             for each in Constants.allCurrencies.ALL_CURRENCIES {
                 if each.country.lowercased() == currentLocation.lowercased() {
@@ -256,7 +275,7 @@ class ScannerViewController: UIViewController {
                 message = alertConstants.messageINF
             } else {
                 title = alertConstants.titleUnableProcess
-                message = alertConstants.messageLocationDisabled
+                message = alertConstants.messageNoCurrencyAbbre
             }
         } else {
             title = alertConstants.titleUnableProcess
