@@ -10,6 +10,9 @@ import Foundation
 
 class WebServiceManager {
     
+    /*
+     This function returns the rate of a certain currency to currency ratio using a stored currency
+     */
     func getRateFromCurrency(currency: Currency?, abbre: String) -> Double {
         var retRate = 0.0
         switch abbre{
@@ -152,6 +155,9 @@ class WebServiceManager {
         return retRate
     }
     
+    /*
+     This function returns the rate of a certain currency to currency ratio using a stored currency data
+     */
     func getRateFromCurrencyData(currency: CurrencyData?, abbre: String) -> Double {
         var retRate = 0.0
         switch abbre{

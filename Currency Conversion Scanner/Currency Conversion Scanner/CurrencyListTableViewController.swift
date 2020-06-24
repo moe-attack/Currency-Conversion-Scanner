@@ -15,67 +15,89 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
     let wsm = WebServiceManager()
     
     var currency: CurrencyData?
-    var defaultCurrency = UserDefaults.standard.string(forKey: "DefaultCurrency") ?? "AUD"
+    var defaultCurrency = UserDefaults.standard.string(forKey: Constants.persistentKey.defaultCurrency) ?? "AUD"
+    let constants = Constants.currencyList.self
+    let alertConstants = Constants.alert.self
 
     var countries = [Country]()
     
-    let CURRENCY_CELL = "CurrencyListCell"
-    let ADD_CELL = "AddCurrencyCell"
-    let CURRENCY_CELL_INDEX = 0
-    let ADD_CELL_INDEX = 1
-    
     var leftoverTask = 0
     
+    /*
+     This function defines what happens when view is going to appear
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // start listening to database change when view first appear
         databaseController?.addListener(listener: self)
-        self.tabBarController?.title = "Currency List"
+        // tab bar title must be set programatically
+        self.tabBarController?.title = constants.tabBarTitle
         self.refreshControl?.tintColor = UIColor(named: "maroonPurple")
+        // add custom function to refresh control, as we need to update the currency list and also default currency
         self.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: UIControl.Event.valueChanged)
-        let newDefaultCurrency = UserDefaults.standard.string(forKey: "DefaultCurrency") ?? "AUD"
+        let newDefaultCurrency = UserDefaults.standard.string(forKey: Constants.persistentKey.defaultCurrency) ?? "AUD"
+        // if default currency has been changed, we'll update it when view first appear
         if defaultCurrency != newDefaultCurrency {
             defaultCurrency = newDefaultCurrency
             refresh()
         }
     }
     
+    /*
+     This function defines what happens when a view disappear
+     */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // stop listening to database when view disappear
         databaseController?.removeListener(listener: self)
     }
     
+    /*
+     This function defines what happens when a view is loaded
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        // using the global database controller instance to minimize resource usage
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
+        // adding shadows making interface light and airy
         addShadowsToView(view: self.navigationController!.navigationBar)
     }
 
     // MARK: - Table view data source
 
+    /*
+     This function defines the number of sections in a tableview
+     */
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
+    /*
+     This function defines the number of rows in each tableview section
+     */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case CURRENCY_CELL_INDEX:
+        case constants.CURRENCY_CELL_INDEX:
             return countries.count
-        case ADD_CELL_INDEX:
+        case constants.ADD_CELL_INDEX:
             return 1
         default:
             return 0
         }
     }
     
+    /*
+     This function defines how to set up a cell in a given tableview section
+     */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == CURRENCY_CELL_INDEX {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CURRENCY_CELL, for: indexPath) as! CurrencyListCell
+        if indexPath.section == constants.CURRENCY_CELL_INDEX {
+            let cell = tableView.dequeueReusableCell(withIdentifier: constants.CURRENCY_CELL, for: indexPath) as! CurrencyListCell
             let country = countries[indexPath.row]
             cell.countryLabel.text = country.name?.uppercased()
-            
+            // the rate needs to be reversed to use default currency as primary
             let rate = 1.0 / wsm.getRateFromCurrency(currency: country.currency, abbre: defaultCurrency)
-            cell.rateLabel.text = String(format: "1 %@ = %@ %@", defaultCurrency, String(roundUpDouble(number: rate)), country.currencyAbbreviation!).uppercased()
+            cell.rateLabel.text = String(format: constants.rateLabelFormat, defaultCurrency, String(roundUpDouble(number: rate)), country.currencyAbbreviation!).uppercased()
             
             if let name = country.name {
                 cell.flagIcon.image = UIImage(named: name)
@@ -83,41 +105,59 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
             return cell
 
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: ADD_CELL, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: constants.ADD_CELL, for: indexPath)
             return cell
         }
     }
     
+    /*
+     This function shows the header of a tableview section
+     */
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section{
-        case CURRENCY_CELL_INDEX:
-            return String(format: "Default Currency: %@", defaultCurrency)
+        // only showing header for currency list as design decision
+        case constants.CURRENCY_CELL_INDEX:
+            return String(format: constants.defaultCurrencyHeaderFormat, defaultCurrency)
         default:
             return nil
         }
     }
     
+    /*
+     This function sets permission to edit a row in the tableview
+     */
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == CURRENCY_CELL_INDEX{
+        if indexPath.section == constants.CURRENCY_CELL_INDEX{
             return true
         }
         return false
     }
 
+    /*
+     This function sets the code to remove a row in the tableview
+     */
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // user should be able to remove a monitored currency.
         let country = countries[indexPath.row]
         let currency = country.currency!
-        if editingStyle == .delete && indexPath.section == CURRENCY_CELL_INDEX {
+        if editingStyle == .delete && indexPath.section == constants.CURRENCY_CELL_INDEX {
+            // removing the currency from database and reload local variable by listening to database changes
             databaseController?.removeCountry(country: country)
             databaseController?.removeCurrency(currency: currency)
-            tableView.reloadSections([CURRENCY_CELL_INDEX], with: .automatic)
+            tableView.reloadSections([constants.CURRENCY_CELL_INDEX], with: .automatic)
         }
     }
     
+    /*
+     This function deselect row when row is selected, as all currency list rows doesn't have explicit selection functionality
+     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    /*
+     This function prepares the navigation segue which was defined in the storyboard
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "addCurrencySegue":
@@ -128,40 +168,47 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         }
     }
     
-    func onCountryChange(change: DatabaseOperation, countries: [Country]) {
-        self.countries = countries
-        tableView.reloadSections([CURRENCY_CELL_INDEX], with: .automatic)
-    }
-    
+    /*
+     This function rounds up the number in the parameter to 3 decimal places
+     */
     func roundUpDouble(number: Double) -> Double{
         return Double(round(1000*number)/1000)
     }
     
-    public func addNewCurrency(country_name: String, currencyAbbreviation: String){
-        let country = databaseController?.createCountry(name: country_name.lowercased(), currencyAbbreviation: currencyAbbreviation)
-        let url = String(format: Constants.allCurrencies.QUERY_URL, currencyAbbreviation)
-        if let country = country {
-            loadCurrency(url: url, country: country)
-        }
-    }
-    
+    /*
+    This function is called when user pull to refresh
+     sender: The sending object
+     */
     @objc func pullToRefresh(sender: AnyObject) {
         refresh()
     }
     
+    /*
+     This function updates the countries details and serves as part of refrshControl.
+     The function is not embedded in pullToRefresh() because it is also used in other places.
+     */
     func refresh(){
+        // handle the case when there is no monitored country
         if self.countries.count == 0 {
             self.refreshControl?.endRefreshing()
             return
         }
+        // update country one by one.
         for country in self.countries {
             let url = String(format: Constants.allCurrencies.QUERY_URL, country.currencyAbbreviation!)
+            // updating existed country by creating a child object copy from the actual country in database
             let country_copy = self.databaseController?.createChildCountryCopy(id: country.objectID)
             loadCurrency(url: url, country: country_copy!)
         }
     }
     
+    /*
+     This function will load the currency details from the API and store the outcome in local database.
+     url: the API endpoint
+     country: the country to update the details
+     */
     public func loadCurrency(url: String, country: Country){
+        // counting number of tasks left, as tasks are not performed on main thread
         self.leftoverTask += 1
         URLSession.shared.invalidateAndCancel()
         // PercentageEncoding must be added to handle non-alphabetical and non-number characters
@@ -173,12 +220,15 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
             }
             
             do {
+                // once data been fetched, decode the data
                 let decoder = JSONDecoder()
                 let currencyData = try decoder.decode(RawCurrencyData.self, from: data!)
+                // go through each currency abbreviation and update the value
                 if let rates = currencyData.rates {
                     self.currency = rates
                     DispatchQueue.main.async {
                         let currencyObject = self.databaseController?.createCurrency()
+                        // the created currency is appended to the country
                         self.databaseController?.addCurrency(country: country, currency: currencyObject!)
                         if let cad = self.currency?.cad {
                             currencyObject?.cad = Double(cad)
@@ -279,6 +329,8 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
                         
                         self.leftoverTask -= 1
                         
+                        // we only save the context when there is no more tasks left. This updates the persistent store context.
+                        // this is to prevent having duplicated updates
                         if self.leftoverTask == 0 {
                             self.databaseController?.saveChildContext()
                             self.databaseController?.resetChildContext()
@@ -292,4 +344,57 @@ class CurrencyListTableViewController: UITableViewController, DatabaseListener, 
         }
         task.resume()
     }
+    
+    /*
+     This function creates an alert and shows a string as of the message parameter.
+     message: A string to be displayed as message body
+     */
+    func displayAlert(message: String) {
+        let alertController = UIAlertController(title: alertConstants.titleUnableProcess, message: message, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: alertConstants.dismiss,
+            style: UIAlertAction.Style.default,handler: nil))
+        alertController.view.tintColor = UIColor(named: "maroonPurple")
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: DatabaseListener Delegate
+    
+    /*
+     This function updates the local countries variable when database changes happened. Refresh the view when done.
+     countries: a list of Country to update the local countries variable
+     */
+    func onCountryChange(countries: [Country]) {
+        self.countries = countries
+        tableView.reloadSections([constants.CURRENCY_CELL_INDEX], with: .automatic)
+    }
+    
+    // MARK: AddCurencyDelegate Delegate
+    
+    /*
+     This function creates a new country, fetch its currency data from the API, then store it in the database.
+     country_name: Name of the Country to be created
+     currencyAbbreviation: The currency abbreviation of the country
+     */
+    public func addNewCurrency(country_name: String, currencyAbbreviation: String){
+        // set limit on how many countries can be added
+        if countries.count >= 8 {
+            self.displayAlert(message: alertConstants.messageCurrencyLimit)
+            return
+        }
+        // check if the country already exists in the database
+        for each in countries {
+            if each.name?.lowercased() == country_name.lowercased() {
+                self.displayAlert(message: alertConstants.messageCurrencyExisted)
+                return
+            }
+        }
+        
+        let country = databaseController?.createCountry(name: country_name.lowercased(), currencyAbbreviation: currencyAbbreviation)
+        let url = String(format: Constants.allCurrencies.QUERY_URL, currencyAbbreviation)
+        if let country = country {
+            loadCurrency(url: url, country: country)
+        }
+    }
+
 }

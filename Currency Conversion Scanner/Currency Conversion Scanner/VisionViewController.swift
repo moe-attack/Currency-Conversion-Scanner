@@ -20,18 +20,13 @@ class VisionViewController: ScannerViewController {
     var request: VNRecognizeTextRequest!
     let tracker = StringTracker()
     
+    /*
+     This function defines what happens when a view is loaded
+     */
     override func viewDidLoad() {
         // set up vision request before camera set up in ScannerViewController so it exists when first buffer is received
         request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         super.viewDidLoad()
-    }
-    
-    override open var shouldAutorotate: Bool {
-        return false
-    }
-    
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
     }
     
     /*
@@ -39,8 +34,10 @@ class VisionViewController: ScannerViewController {
      */
     func recognizeTextHandler(request: VNRequest, error: Error?) {
         var numbers = [String]()
-        var redBoxes = [CGRect]() // shows all recognized text lines
-        var greenBoxes = [CGRect]() // shows words that matches the regex
+        // shows all recognized text lines
+        var redBoxes = [CGRect]()
+        // shows words that matches the regex
+        var greenBoxes = [CGRect]()
         
         guard let results = request.results as? [VNRecognizedTextObservation] else { return }
         
@@ -69,8 +66,8 @@ class VisionViewController: ScannerViewController {
                 redBoxes.append(visionResult.boundingBox)
             }
         }
-        
-        tracker.logFrame(strings: numbers)  // log the frame
+        // log the frame
+        tracker.logFrame(strings: numbers)
         show(boxGroups: [(color: UIColor.red.cgColor, boxes: redBoxes), (color: UIColor.green.cgColor, boxes: greenBoxes)])
         
         // check if there is any valid result
@@ -101,6 +98,7 @@ class VisionViewController: ScannerViewController {
         
     // draw a box on screen, must be called from main queue.
     var boxLayer = [CAShapeLayer]()
+    
     /*
      This function draws a box by inserting the box layer as sublayer in the preview view
      */

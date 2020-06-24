@@ -29,6 +29,9 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         super.init()
     }
     
+    /*
+     This function saves the view context to database
+     */
     func saveContext() {
         if persistentContainer.viewContext.hasChanges {
             do {
@@ -39,14 +42,23 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
     }
     
+    /*
+     This function calls the save context function
+     */
     func cleanUp(){
         saveContext()
     }
     
+    /*
+     This function resets the child object and clear all data in it
+     */
     func resetChildContext(){
         childContext.reset()
     }
     
+    /*
+     This function saves the child object and pushes its changes to the parent context
+     */
     func saveChildContext(){
         if childContext.hasChanges {
             do {
@@ -57,11 +69,22 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         }
     }
     
+    /*
+     This function creates a country child object by using the parent object ID
+     id: The NSManagedObjectID from the parent country object
+     return: The child country object
+     */
     func createChildCountryCopy(id: NSObject) -> Country {
         let countryCopy = childContext.object(with: id as! NSManagedObjectID)
         return countryCopy as! Country
     }
     
+    /*
+     This function creates a new country object in the database.
+     name: Name of the country to be created
+     currencyAbbreviation: the currency abbreviation of the country to be created
+     return: the country created
+     */
     func createCountry(name: String, currencyAbbreviation: String) -> Country {
         let country = NSEntityDescription.insertNewObject(forEntityName: "Country", into: childContext) as! Country
         country.name = name
@@ -69,11 +92,20 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return country
     }
     
+    /*
+     This function creates a new empty currency in the database.
+     return: the currency created
+     */
     func createCurrency() -> Currency {
         let currency = NSEntityDescription.insertNewObject(forEntityName: "Currency", into: childContext) as! Currency
         return currency
     }
     
+    /*
+     This function adds a currency to the country, to create database relationship between the two.
+     country: The country to be added with a currency
+     currency: The currency to add to a country
+     */
     func addCurrency(country: Country, currency: Currency) {
         if let old_currency = country.currency {
             childContext.delete(old_currency)
@@ -81,38 +113,45 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         country.currency = currency
     }
 
+    /*
+     This function removes a country from the view context.
+     country: The country to be removed
+     */
     func removeCountry(country: Country) {
         persistentContainer.viewContext.delete(country)
     }
     
+    /*
+     This function removes a currency from the view context.
+     currency: The Currency to be removed
+     */
     func removeCurrency(currency: Currency) {
         persistentContainer.viewContext.delete(currency)
     }
     
     /*
      This function is called when a listener is updated, and will do appropriate action.
+     listener: The listener listening to the database
      */
     func addListener(listener: DatabaseListener) {
         listeners.addDelegate(listener)
         
         if listener.listenerType == .country {
-            listener.onCountryChange(change: .update, countries: fetchAllCountries())
+            listener.onCountryChange(countries: fetchAllCountries())
         }
     }
     
     /*
-     This function removes a listener.
+     This function removes a listener from the list.
+     listener: The listener listening to the database
      */
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
     }
     
     /*
-     Fetching starts here
-     */
-    
-    /*
-     This function fetches a list of cocktails from the coredata and returns it.
+     This function fetches a list of countries from the coredata and returns it.
+     return: A list of countries fetched from the database fetch result controller
      */
     func fetchAllCountries() -> [Country] {
         // if the controller has not been initalized yet
@@ -141,7 +180,6 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         return countries
     }
     
-    // NSFetchedResultsController delegate
     /*
      If the controller changed context, do appropriate action by calling responsible methods.
      */
@@ -149,7 +187,7 @@ class CoreDataController: NSObject, DatabaseProtocol, NSFetchedResultsController
         if controller == countryFetchedResultsController {
             listeners.invoke { (listener) in
                 if listener.listenerType == .country {
-                    listener.onCountryChange(change: .update, countries: fetchAllCountries())
+                    listener.onCountryChange(countries: fetchAllCountries())
                 }
             }
         }

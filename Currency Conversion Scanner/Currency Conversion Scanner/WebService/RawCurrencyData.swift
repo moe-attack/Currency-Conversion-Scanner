@@ -12,6 +12,7 @@ class RawCurrencyData: NSObject, Decodable {
     
     var rates: CurrencyData?
     
+    // This is the coding key to decode a JSON object
     private enum CodingKeys: String, CodingKey {
         case rates
     }

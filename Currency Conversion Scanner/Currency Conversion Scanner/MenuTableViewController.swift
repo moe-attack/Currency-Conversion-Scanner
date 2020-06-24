@@ -9,49 +9,59 @@
 import UIKit
 
 class MenuTableViewController: UITableViewController {
-
-    let MENU_CELL = "MenuCell"
     
+    let constants = Constants.menu.self
+    
+    /*
+     This function defines what happens when view is going to appear
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.title = "Menu"
+        self.tabBarController?.title = constants.tabBarTitle
     }
     
+    /*
+     This function defines what happens when a view is loaded
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
+    /*
+     This function defines the number of sections in a tableview
+     */
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return constants.numberOfSection
     }
 
+    /*
+     This function defines the number of rows in each tableview section
+     */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2
+        return  constants.numberOfRow
     }
 
+    /*
+     This function defines how to set up a cell in a given tableview section
+     */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: constants.MENU_CELL, for: indexPath) as! MenuTableViewCell
         switch indexPath.row{
         case 0:
-            cell.containerText.text = "Change Default Currency"
+            cell.containerText.text = constants.cellTextDefaultCurrency
         case 1:
-            cell.containerText.text = "About"
+            cell.containerText.text = constants.cellTextAbout
         default:
             ()
         }
         return cell
     }
 
+    /*
+     This function sets up the consequence after selected a row in the tableview
+     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
@@ -63,15 +73,4 @@ class MenuTableViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

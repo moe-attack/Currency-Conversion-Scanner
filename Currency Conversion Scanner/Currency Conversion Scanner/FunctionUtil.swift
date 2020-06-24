@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+/*
+ This function adds shadow to the view. This function will be allowed to be called globally.
+ view: The view to add shadows on.
+ */
 public func addShadowsToView(view: UIView) {
     view.layer.masksToBounds = false
     view.layer.shadowColor = UIColor.lightGray.cgColor

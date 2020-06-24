@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 class PreviewView: UIView {
+    // This view is acting as the layer to contain the video capturing.
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
         guard let layer = layer as? AVCaptureVideoPreviewLayer else {
             fatalError("Expected `AVCaptureVideoPreviewLayer` type for layer. Check PreviewView.layerClass implementation.")
@@ -18,6 +19,7 @@ class PreviewView: UIView {
         return layer
     }
     
+    // getter and setter for the session
     var session: AVCaptureSession? {
         get {
             return videoPreviewLayer.session
@@ -26,8 +28,6 @@ class PreviewView: UIView {
             videoPreviewLayer.session = newValue
         }
     }
-    
-    // MARK: UIView
     
     override class var layerClass: AnyClass {
         return AVCaptureVideoPreviewLayer.self

@@ -100,14 +100,17 @@ extension String {
         }
         
         var priceValue = ""
-        let substring = String(self[range])  // convert type Range to Substring then to String
+        // convert type Range to Substring then to String
+        let substring = String(self[range])
         let nsrange = NSRange(substring.startIndex..., in: substring)
         do {
+            // try to match the regex expression
             let regex = try NSRegularExpression(pattern: pattern, options: [])
             if let match = regex.firstMatch(in: substring, options: [], range: nsrange) {
                 // Extracting regex match
                 for rangeInd in 1 ..< match.numberOfRanges {
                     let range = match.range(at: rangeInd)
+                    // Note that regex might be found as substring so extract it and append to overall string
                     let matchString = (substring as NSString).substring(with: range)
                     priceValue += matchString as String
                 }

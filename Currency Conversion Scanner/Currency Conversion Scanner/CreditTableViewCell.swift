@@ -10,22 +10,19 @@ import UIKit
 
 class CreditTableViewCell: UITableViewCell {
 
+    // Link the cell UI components to be configured in View Controller
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var header: UILabel!
     @IBOutlet weak var body: UILabel!
     
+    /*
+     This function is called when the view loads a cell. Additional UI set up is defined here.
+     */
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        // Round corner and shadows to make app more presenting, also as one of the signature of the app.
         containerView.layer.cornerRadius = 10
         addShadowsToView(view: containerView)
         
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
