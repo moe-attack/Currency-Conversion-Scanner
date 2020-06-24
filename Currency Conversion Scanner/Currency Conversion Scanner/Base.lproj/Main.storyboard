@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FKq-jq-arP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Lai-rc-KGn">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -129,7 +129,16 @@
                             <outlet property="delegate" destination="1dg-8W-CYw" id="46W-Np-C7I"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="" image="coloncurrencysign.square" catalog="system" id="Cpd-gx-kqh" userLabel="List"/>
+                    <tabBarItem key="tabBarItem" title="" image="coloncurrencysign.square" catalog="system" id="Cpd-gx-kqh" userLabel="List" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" name="lightPink"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="af2-PM-DFS" id="2R0-UY-Tpm"/>
+                        </connections>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="Currency List" id="zRz-1O-aHX"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="kzy-fE-ZGJ">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -138,6 +147,13 @@
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oOd-E3-TUG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="af2-PM-DFS" userLabel="animation" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="iconSelectedColor">
+                            <color key="value" name="darkGreen"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1955.072463768116" y="81.696428571428569"/>
         </scene>
@@ -196,7 +212,16 @@
                             <outlet property="delegate" destination="8CV-m6-9Yw" id="IiY-4R-4Az"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="" image="rectangle.grid.1x2" catalog="system" id="aVt-Gy-IJg"/>
+                    <tabBarItem key="tabBarItem" title="" image="rectangle.grid.1x2" catalog="system" id="aVt-Gy-IJg" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" name="lightPink"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="7iP-Oi-jw0" id="ePP-IH-ygW"/>
+                        </connections>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="UiF-tn-0XL"/>
                     <connections>
                         <segue destination="Ld9-hp-ONv" kind="show" identifier="defaultCurrencySegue" id="BlB-6f-3Pc"/>
@@ -204,6 +229,13 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vMQ-38-n11" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="7iP-Oi-jw0" userLabel="animation" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="iconSelectedColor">
+                            <color key="value" name="darkGreen"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1941" y="765"/>
         </scene>
@@ -221,8 +253,8 @@
                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZOm-CR-GKP" userLabel="country picker">
-                                <rect key="frame" x="20" y="163" width="374" height="216"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOm-CR-GKP" userLabel="country picker">
+                                <rect key="frame" x="0.0" y="163" width="414" height="216"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYI-9f-7Vk" userLabel="save button">
@@ -262,7 +294,7 @@
         <!--TabBarController-->
         <scene sceneID="1EG-Bl-oqO">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" title="TabBarController" modalTransitionStyle="flipHorizontal" id="FtP-du-P2z" customClass="TabBarController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" title="TabBarController" modalTransitionStyle="flipHorizontal" id="FtP-du-P2z" customClass="RAMAnimatedTabBarController" customModule="RAMAnimatedTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0WY-J9-sWY"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ee5-xX-V3j">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -290,31 +322,98 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6at-fN-m94" userLabel="preview view" customClass="PreviewView" customModule="Currency_Conversion_Scanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoCamera" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-sg-kui">
+                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="CAe-dZ-2MI"/>
+                                    <constraint firstAttribute="width" constant="300" id="koS-f3-f6j"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="7tl-sg-kui" firstAttribute="centerY" secondItem="og0-nm-Fgr" secondAttribute="centerY" id="FUg-7f-gHN"/>
                             <constraint firstItem="6at-fN-m94" firstAttribute="top" secondItem="og0-nm-Fgr" secondAttribute="top" constant="88" id="Ggo-Zg-rob"/>
                             <constraint firstItem="6at-fN-m94" firstAttribute="bottom" secondItem="og0-nm-Fgr" secondAttribute="bottom" constant="-83" id="NT6-q8-9Uz"/>
+                            <constraint firstItem="7tl-sg-kui" firstAttribute="centerX" secondItem="og0-nm-Fgr" secondAttribute="centerX" id="RRP-GT-Pln"/>
                             <constraint firstItem="6at-fN-m94" firstAttribute="leading" secondItem="og0-nm-Fgr" secondAttribute="leading" id="VMk-BS-ZxP"/>
                             <constraint firstAttribute="trailing" secondItem="6at-fN-m94" secondAttribute="trailing" id="ob6-cE-b6X"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pRi-la-vI3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="barcode.viewfinder" catalog="system" selectedImage="barcode.viewfinder" id="qYs-8C-F2Y"/>
+                    <tabBarItem key="tabBarItem" title="" image="barcode.viewfinder" catalog="system" selectedImage="barcode.viewfinder" id="qYs-8C-F2Y" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" name="lightPink"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="Zkd-rU-cDz" id="b5w-6f-jP9"/>
+                        </connections>
+                    </tabBarItem>
                     <connections>
+                        <outlet property="noCamera" destination="7tl-sg-kui" id="sys-V5-8w7"/>
                         <outlet property="previewView" destination="6at-fN-m94" id="7tn-we-IlY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWU-XJ-iGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="Zkd-rU-cDz" userLabel="animation" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="iconSelectedColor">
+                            <color key="value" name="darkGreen"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1953.6231884057972" y="-609.375"/>
+        </scene>
+        <!--SplashScreenViewController-->
+        <scene sceneID="vwf-VD-Nmt">
+            <objects>
+                <viewController storyboardIdentifier="SplashScreenViewController" title="SplashScreenViewController" id="Lai-rc-KGn" customClass="SplashScreenViewController" customModule="Currency_Conversion_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qUh-lA-0AJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="tUD-MD-MxF">
+                                <rect key="frame" x="162" y="403" width="90" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="KCU-rE-hDb"/>
+                                    <constraint firstAttribute="width" constant="90" id="SfB-fj-8RU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CurrenScan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbU-il-XPH" customClass="LTMorphingLabel" customModule="LTMorphingLabel">
+                                <rect key="frame" x="12" y="523" width="390" height="21"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldItalicMT" family="Arial" pointSize="18"/>
+                                <color key="textColor" name="maroonPurple"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="grayGreen"/>
+                        <constraints>
+                            <constraint firstItem="SAF-UD-JNu" firstAttribute="trailing" secondItem="VbU-il-XPH" secondAttribute="trailing" constant="12" id="BfX-wP-Jhq"/>
+                            <constraint firstItem="VbU-il-XPH" firstAttribute="leading" secondItem="SAF-UD-JNu" secondAttribute="leading" constant="12" id="S7Q-fT-Vbt"/>
+                            <constraint firstItem="tUD-MD-MxF" firstAttribute="centerY" secondItem="qUh-lA-0AJ" secondAttribute="centerY" id="VLk-EY-IbV"/>
+                            <constraint firstItem="VbU-il-XPH" firstAttribute="top" secondItem="tUD-MD-MxF" secondAttribute="bottom" constant="30" id="ph6-rx-UrA"/>
+                            <constraint firstItem="tUD-MD-MxF" firstAttribute="centerX" secondItem="qUh-lA-0AJ" secondAttribute="centerX" id="s8R-mC-z5t"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SAF-UD-JNu"/>
+                    </view>
+                    <connections>
+                        <outlet property="logo" destination="tUD-MD-MxF" id="LO5-K8-HOx"/>
+                        <outlet property="logoText" destination="VbU-il-XPH" id="xyt-2c-iyn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VVq-Li-oyL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-620.28985507246387" y="71.651785714285708"/>
         </scene>
         <!--NavigationController-->
         <scene sceneID="n0g-JJ-UvA">
             <objects>
-                <navigationController title="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="FKq-jq-arP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" title="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="FKq-jq-arP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="YkE-xR-QwI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SY8-TR-wI3">
@@ -349,8 +448,8 @@
                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wnG-CU-alJ" userLabel="country picker">
-                                <rect key="frame" x="20" y="163" width="374" height="216"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wnG-CU-alJ" userLabel="country picker">
+                                <rect key="frame" x="0.0" y="163" width="414" height="216"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="us7-6I-YgX" userLabel="save button">
@@ -452,10 +551,17 @@
                                                     <color key="textColor" name="maroonPurple"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6F-cO-gBs" userLabel="body">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6F-cO-gBs" userLabel="body">
                                                     <rect key="frame" x="12" y="42" width="350" height="9.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="maroonPurple"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Label">
+                                                            <attributes>
+                                                                <color key="NSColor" name="maroonPurple"/>
+                                                                <font key="NSFont" size="14" name="Arial-ItalicMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -483,7 +589,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="body" destination="B6F-cO-gBs" id="AOm-u9-NXi"/>
-                                    <outlet property="containerText" destination="eN6-58-MUf" id="3KO-zY-3KK"/>
                                     <outlet property="containerView" destination="CmM-Jw-eNc" id="IWV-3D-ki5"/>
                                     <outlet property="header" destination="eN6-58-MUf" id="Off-l4-hrW"/>
                                 </connections>
@@ -503,6 +608,8 @@
     </scenes>
     <color key="tintColor" name="lightPink"/>
     <resources>
+        <image name="AppIconImage" width="180" height="180"/>
+        <image name="NoCamera" width="1080" height="1080"/>
         <image name="barcode.viewfinder" catalog="system" width="128" height="114"/>
         <image name="coloncurrencysign.square" catalog="system" width="128" height="114"/>
         <image name="flag.circle" catalog="system" width="128" height="121"/>
@@ -511,11 +618,17 @@
         <namedColor name="darkGreen">
             <color red="0.33333333333333331" green="0.54509803921568623" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="grayGreen">
+            <color red="0.53333333333333333" green="0.62745098039215685" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="grayPink">
             <color red="0.72156862745098038" green="0.5490196078431373" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="lightPink">
             <color red="0.94509803921568625" green="0.78431372549019607" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="maroonPurple">
+            <color red="0.4392156862745098" green="0.29803921568627451" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="maroonPurple">
             <color red="0.4392156862745098" green="0.29803921568627451" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

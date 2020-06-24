@@ -1,0 +1,6 @@
+framework module Pods_Currency_Conversion_Scanner {
+  umbrella header "Pods-Currency Conversion Scanner-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -19,6 +19,12 @@ import Vision
 class ScannerViewController: UIViewController {
     
     @IBOutlet weak var previewView: PreviewView!
+    @IBOutlet weak var noCamera: UIImageView!
+
+    weak var locationManager: LocationManager?
+    
+    let constants = Constants.scanner.self
+    let alertConstants = Constants.alert.self
 
     var maskLayer = CAShapeLayer()
     
@@ -47,34 +53,68 @@ class ScannerViewController: UIViewController {
     var visionToAVFTransform = CGAffineTransform.identity
 
     // get location
-    var currentLocation = UserDefaults.standard.string(forKey: "CurrentLocation") ?? ""
+    var currentLocation = UserDefaults.standard.string(forKey: Constants.persistentKey.currentLocation) ?? ""
     var currency: CurrencyData?
-    var defaultCurrency = UserDefaults.standard.string(forKey: "DefaultCurrency") ?? "AUD"
+    var defaultCurrency = UserDefaults.standard.string(forKey: Constants.persistentKey.defaultCurrency) ?? "AUD"
     let wsm = WebServiceManager()
 
+    /*
+     This function defines what happens when view is going to appear
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.title = "Scanner"
+        self.tabBarController?.title = constants.tabBarTitle
+        
+        // ensure the capture device is accessible whenever the view is about to appear
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        // if accessible, hide the no camera image
+        case .authorized:
+            noCamera.isHidden = true
+        case .notDetermined:
+            self.noCamera.isHidden = false
+        case .denied:
+            noCamera.isHidden = false
+            return
+        case .restricted:
+            noCamera.isHidden = false
+            return
+        @unknown default:
+            fatalError("Failure to determine capture device status")
+        }
     }
     
+    /*
+     This function defines what happens when a view disappear
+     */
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // we dont need the capture session if view is not on top stack
         self.captureSession.stopRunning()
     }
     
+    /*
+     This function defines what happens when a view is loaded
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        locationManager = appDelegate.locationManager
         // set up preview view
         previewView.session = captureSession
+        // using a mask layer to have limited area of interest
         maskLayer.backgroundColor = UIColor.clear.cgColor
         maskLayer.fillRule = .evenOdd
-        switch AVCaptureDevice.authorizationStatus(for: .video) {  // ensure the camera device is accessible before set up.
+        
+        // ensure the camera device is accessible before set up.
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             startSetUpCamera()
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted {
                     self.startSetUpCamera()
+                } else {
+                    return
                 }
             }
         case .denied:
@@ -86,19 +126,18 @@ class ScannerViewController: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-//        updateGrayout()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        captureSessionQueue.async {
+            if !self.captureSession.isRunning {
+                self.captureSession.startRunning()
+            }
+        }
     }
-    
-    override open var shouldAutorotate: Bool {
-        return false
-    }
-    
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
-    
+
+    /*
+     This function prepares to set up the camera using dedicated queue
+     */
     func startSetUpCamera(){
         // starting the capture session is a blocking call. Perform setup using
         // a dedicated serial dispatch queue to prevent blocking the main thread.
@@ -107,13 +146,14 @@ class ScannerViewController: UIViewController {
             
             DispatchQueue.main.async {
                 // recalculate region of interest since camera is set up
+                self.noCamera.isHidden = true
                 self.calculateRegionOfInterest()
             }
         }
     }
     
     /*
-     This method utilize the Core Graphic library to calculate the region of interest by scaling and transforming the affine transformation mattrix from the existing preview
+     This function utilize the Core Graphic library to calculate the region of interest by scaling and transforming the affine transformation mattrix from the existing preview
      */
     func calculateRegionOfInterest() {
         let desiredHeightRatio = 0.3  //0.15
@@ -140,6 +180,9 @@ class ScannerViewController: UIViewController {
         visionToAVFTransform = roiToGlobalTransform.concatenating(bottomToTopTransform).concatenating(uiRotationTransform)
     }
     
+    /*
+     This function sets up the configuration of the capturing device
+     */
     func setupCamera() {
         guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back) else {
             print("Could not create capture device.")
@@ -194,38 +237,61 @@ class ScannerViewController: UIViewController {
         captureSessionQueue.sync {
             self.captureSession.stopRunning()
             DispatchQueue.main.async {
-                self.displayAlert(title: "Scanned Result", value: string)
+                self.displayAlert(value: string)
             }
         }
     }
     
     /*
-     This function shows an alert message with an alert action handler
+     This function creates an alert and shows a string as of the message parameter.
+     value: A string to be displayed as message body
      */
-    func displayAlert(title: String, value: String) {
+    func displayAlert(value: String) {
         var currentAbbre = ""
-        if currentLocation != "" {
-            for each in Constants.allCurrencies.ALL_CURRENCIES {
-                if each.country == currentLocation{
-                    currentAbbre = each.abbre
+        var message = ""
+        var title = ""
+        // If the location is nil, try to fetch again
+        if currentLocation == "" {
+            if let exposeLocation = locationManager?.exposedLocation {
+                locationManager?.getPlace(for: exposeLocation) { placeMark in
+                    guard let placeMark = placeMark else {return}
+                    UserDefaults.standard.set(placeMark.country, forKey: Constants.persistentKey.currentLocation)
+                    self.currentLocation = placeMark.country!
                 }
             }
         }
         
-        let valueDouble: Double = Double(value.replacingOccurrences(of: "$", with: "")) ?? 1.0
-        
-        if currentAbbre != "" {
-            fetchCurrency(abbre: currentAbbre)
-            let rate = valueDouble / wsm.getRateFromCurrencyData(currency: self.currency, abbre: defaultCurrency)
-            let msg = String(format: "%@ %@ = %@ %@", String(valueDouble) ,defaultCurrency, String(roundUpDouble(number: rate)), currentAbbre).uppercased()
-            let messageBody = "If value 'INF' showed up, please try again! m(_ _;m)"
-            let alertController = UIAlertController(title: msg, message: messageBody, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss",
-                style: UIAlertAction.Style.default,handler: alertCompleteHandler))
-            self.present(alertController, animated: true, completion: nil)
+        if currentLocation != "" {
+            for each in Constants.allCurrencies.ALL_CURRENCIES {
+                if each.country.lowercased() == currentLocation.lowercased() {
+                    currentAbbre = each.abbre
+                }
+            }
+            let valueDouble: Double = Double(value.replacingOccurrences(of: "$", with: "")) ?? 1.0
+            if currentAbbre != "" {
+                fetchCurrency(abbre: currentAbbre)
+                let rate = valueDouble / wsm.getRateFromCurrencyData(currency: self.currency, abbre: defaultCurrency)
+                title = String(format: alertConstants.titleScannedResult, String(valueDouble) ,defaultCurrency, String(roundUpDouble(number: rate)), currentAbbre).uppercased()
+                message = alertConstants.messageINF
+            } else {
+                title = alertConstants.titleUnableProcess
+                message = alertConstants.messageNoCurrencyAbbre
+            }
+        } else {
+            title = alertConstants.titleUnableProcess
+            message = alertConstants.messageLocationDisabled
         }
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: alertConstants.dismiss,
+            style: UIAlertAction.Style.default,handler: alertCompleteHandler))
+        alertController.view.tintColor = UIColor(named: "maroonPurple")
+        self.present(alertController, animated: true, completion: nil)
     }
     
+    /*
+     This function rounds up the number to 3 decimal places
+     */
     func roundUpDouble(number: Double) -> Double{
         return Double(round(1000*number)/1000)
     }
@@ -241,7 +307,11 @@ class ScannerViewController: UIViewController {
         }
     }
 
+    /*
+     This function fetches the currency from the API and cache the data in local variable to reduce network traffic
+     */
     func fetchCurrency(abbre: String){
+        // fetch the currency rate from API
         let url = String(format: Constants.allCurrencies.QUERY_URL, abbre)
         let jsonURL = URL(string: url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
@@ -250,6 +320,7 @@ class ScannerViewController: UIViewController {
                 return
             }
             do {
+                // once fetched, decode the data and store in local variable
                 let decoder = JSONDecoder()
                 let currencyData = try decoder.decode(RawCurrencyData.self, from: data!)
                 if let rates = currencyData.rates {
@@ -262,6 +333,8 @@ class ScannerViewController: UIViewController {
         task.resume()
     }
 }
+
+// MARK: AVCaptureVideoDataOutputSampleBufferDelegate extension
 
 extension ScannerViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     

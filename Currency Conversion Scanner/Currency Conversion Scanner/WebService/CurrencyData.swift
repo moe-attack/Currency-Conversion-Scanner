@@ -43,6 +43,7 @@ class CurrencyData: NSObject, Decodable {
     var krw: Double?
     var pln: Double?
     
+    // This is the coding key to decode a JSON object
     private enum ratesKeys: String, CodingKey {
         case cad = "CAD"
         case hkd = "HKD"
@@ -79,6 +80,7 @@ class CurrencyData: NSObject, Decodable {
         case pln = "PLN"
     }
     
+    // When decode, decode each key and store the outcome in local variable
     required init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: ratesKeys.self)
         cad = try rootContainer.decode(Double.self, forKey: .cad)

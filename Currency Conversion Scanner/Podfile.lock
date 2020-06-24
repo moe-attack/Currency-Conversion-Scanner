@@ -1,0 +1,20 @@
+PODS:
+  - LTMorphingLabel (0.8.0)
+  - RAMAnimatedTabBarController (5.2.0)
+
+DEPENDENCIES:
+  - LTMorphingLabel
+  - RAMAnimatedTabBarController
+
+SPEC REPOS:
+  trunk:
+    - LTMorphingLabel
+    - RAMAnimatedTabBarController
+
+SPEC CHECKSUMS:
+  LTMorphingLabel: 1ada1cb5c046ae4ce5c66b428cf2e05e227e8e4f
+  RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
+
+PODFILE CHECKSUM: 3bc3e7d0159d9058b1007823b9c7db73579099bd
+
+COCOAPODS: 1.9.1
