@@ -1,4 +1,4 @@
-# Currency-Conversion-Scanner
+# README
 
 ## About
 This app was created to as a side project to demonstrate my understanding to iOS development.
