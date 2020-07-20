@@ -1,4 +1,7 @@
 # README
+
+![icon](./Icon.JPG)
+
 This app was created to as a side project to demonstrate my understanding to iOS development.
 MVC design pattern was used to separate the concerns of different application logics, and Object Oriented Principles SOLID was followed.
 
