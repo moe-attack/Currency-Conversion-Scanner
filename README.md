@@ -22,6 +22,8 @@ The app has several functionalities that can help travelers to identify the pric
 
 The app allows the user to change the preset currency at any time, for their convenience sake. The user will be able to add a list of currencies to the saved list, which display real-time foreign exchange data.
 
+![MAIN](./main_page.png)
+
 ### Target Audience
 Travelers aboard; Users looking for simplicity; Elderly not good with devices.
 
